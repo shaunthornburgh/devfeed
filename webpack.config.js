@@ -12,8 +12,8 @@ Encore
         './node_modules/popper.js/dist/popper.min.js',
         './node_modules/bootstrap/dist/js/bootstrap.min.js',
         './node_modules/holderjs/holder.min.js',
-        './assets/css/dashkit.min.js',
-        './assets/css/theme.min.js'
+        './assets/js/dashkit.min.js',
+        './assets/js/theme.min.js',
     ])
     .addStyleEntry('css/app', [
         './node_modules/bootstrap/dist/css/bootstrap.min.css',
@@ -24,14 +24,7 @@ Encore
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
-    // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
-
-    // enables @babel/preset-env polyfills
-    .configureBabelPresetEnv((config) => {
-        config.useBuiltIns = 'usage';
-        config.corejs = 3;
-    })
 ;
 
 module.exports = Encore.getWebpackConfig();
