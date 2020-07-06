@@ -1,0 +1,41 @@
+<div class="card">
+    {{ form_start(form) }}
+        <div class="card-body">
+            <div class="form-group">
+                {{ form_widget(
+                    form.text, {
+                        'attr': {
+                            'class': 'form-control form-control-flush form-control-auto',
+                            'placeholder': 'Start a post...',
+                            'rows': 3,
+                            'data-toggle': 'autosize'
+                        }
+                    }
+                ) }}
+                <div class="invalid-feedback">{{ form_errors(form.text) }}</div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col">
+                    <small class="text-muted">
+                        0/500
+                    </small>
+                </div>
+                <div class="col-auto">
+                    <div class="text-muted">
+                        <a class="text-reset mr-3" href="#!" data-toggle="tooltip" title="Add photo">
+                            <i class="fe fe-camera"></i>
+                        </a>
+                        <a class="text-reset mr-3" href="#!" data-toggle="tooltip" title="Attach file">
+                            <i class="fe fe-paperclip"></i>
+                        </a>
+                        {{ form_widget(form.save, {
+                            'attr': {
+                                'class': 'btn btn-sm btn-white'
+                            }})
+                        }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>

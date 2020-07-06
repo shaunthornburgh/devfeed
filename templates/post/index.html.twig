@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row mt-4 mt-md-5">
+            <div class="col-12 col-xl-8">
+                {% for message in app.flashes('notice') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {% include('post/create.html.twig') %}
+
+                {% for post in posts %}
+                    {% include 'post/post.html.twig' with { 'post': post } %}
+                {% endfor %}
+
+            </div>
+            {% include('post/layout/sidebar.html.twig') %}
+        </div>
+    </div>
+{% endblock %}

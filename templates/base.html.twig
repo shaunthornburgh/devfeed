@@ -2,11 +2,19 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}DevFeed{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% include('layout/notifications.html.twig') %}
+        {% include('layout/navigation.html.twig') %}
+        <div class="main-content">
+            {% block body %}{% endblock %}
+            {% block javascripts %}
+                <script src="{{ asset('build/js/app.js') }}"></script>
+            {% endblock %}
+        </div>
     </body>
 </html>
