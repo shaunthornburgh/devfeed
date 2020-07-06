@@ -7,8 +7,10 @@
             <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
         {% endblock %}
     </head>
-    <body class="d-flex align-items-center bg-auth border-top border-top-2 border-primary">
-        <div class="container">
+    <body>
+        {% include('app/layout/notifications.html.twig') %}
+        {% include('app/layout/navigation.html.twig') %}
+        <div class="main-content">
             {% block body %}{% endblock %}
             {% block javascripts %}
                 <script src="{{ asset('build/js/app.js') }}"></script>

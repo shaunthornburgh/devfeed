@@ -126,7 +126,7 @@ class User implements UserInterface, \Serializable
 
     public function serialize()
     {
-        return $this->serialize([
+        return serialize([
             $this->id,
             $this->username,
             $this->password
@@ -137,6 +137,6 @@ class User implements UserInterface, \Serializable
     {
         list($this->id,
             $this->username,
-            $this->password) = $this->unserialize($serialized);
+            $this->password) = unserialize($serialized);
     }
 }

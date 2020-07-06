@@ -101,7 +101,7 @@ class PostController
 
         return new Response(
             $this->twig->render(
-                'post/index.html.twig', [
+                'app/post/index.html.twig', [
                     'posts' => $posts,
                     'form' => $form->createView()
                 ]
@@ -131,7 +131,7 @@ class PostController
 
         return new Response(
             $this->twig->render(
-                'post/show.html.twig', [
+                'app/post/show.html.twig', [
                     'post' => $post,
                     'form' => $form->createView()
                 ]

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'app/base.html.twig' %}
 
 {% block body %}
     <div class="container-fluid">
@@ -10,14 +10,14 @@
                     </div>
                 {% endfor %}
 
-                {% include('post/create.html.twig') %}
+                {% include('app/post/create.html.twig') %}
 
                 {% for post in posts %}
-                    {% include 'post/post.html.twig' with { 'post': post } %}
+                    {% include 'app/post/post.html.twig' with { 'post': post } %}
                 {% endfor %}
 
             </div>
-            {% include('post/layout/sidebar.html.twig') %}
+            {% include('app/post/layout/sidebar.html.twig') %}
         </div>
     </div>
 {% endblock %}

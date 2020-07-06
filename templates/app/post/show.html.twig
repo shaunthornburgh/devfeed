@@ -1,12 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'app/base.html.twig' %}
 
 {% block body %}
     <div class="container-fluid">
         <div class="row mt-4 mt-md-5">
             <div class="col-12 col-xl-8">
-                {% include('post/post.html.twig') %}
+                {% include('app/post/post.html.twig') %}
             </div>
-            {% include('post/layout/sidebar.html.twig') %}
+            {% include('app/post/layout/sidebar.html.twig') %}
         </div>
     </div>
 {% endblock %}
