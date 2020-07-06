@@ -4,10 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields="email", message="This email address is already in use")
+ * @UniqueEntity(fields="username", message="This username is already in use")
  */
 class User implements UserInterface, \Serializable
 {
@@ -20,6 +24,8 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=50, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $username;
 
@@ -29,15 +35,28 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min=8, max=4096)
+     */
+    private $plainPassword;
+
+    /**
      * @ORM\Column(type="string", length=254, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=5, max=50)
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=5, max=50)
      */
     private $fullName;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
@@ -107,6 +126,9 @@ class User implements UserInterface, \Serializable
         $this->fullName = $fullName;
     }
 
+    /**
+     * @return string[]
+     */
     public function getRoles()
     {
         return [
@@ -114,16 +136,25 @@ class User implements UserInterface, \Serializable
         ];
     }
 
+    /**
+     * @return string|null
+     */
     public function getSalt()
     {
         return null;
     }
 
+    /**
+     *
+     */
     public function eraseCredentials()
     {
 
     }
 
+    /**
+     * @return string
+     */
     public function serialize()
     {
         return serialize([
@@ -133,10 +164,29 @@ class User implements UserInterface, \Serializable
         ]);
     }
 
+    /**
+     * @param string $serialized
+     */
     public function unserialize($serialized)
     {
         list($this->id,
             $this->username,
             $this->password) = unserialize($serialized);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 }
