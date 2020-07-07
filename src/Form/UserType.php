@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Post;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -23,7 +23,7 @@ class UserType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeated Password'],
+                'second_options' => ['label' => 'Repeat Password'],
             ])
             ->add('fullName', TextType::class)
             ->add('termsAgreed', CheckboxType::class, [
