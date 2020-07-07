@@ -22,8 +22,8 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $this->loadPosts($manager);
         $this->loadUsers($manager);
+        $this->loadPosts($manager);
     }
 
     private function loadPosts(ObjectManager $manager)
@@ -32,6 +32,7 @@ class AppFixtures extends Fixture
             $post = new Post();
             $post->setText('Some random text ' . rand(0, 100));
             $post->setTime(new \DateTime());
+            $post->setUser($this->getReference('shaunthornburgh'));
             $manager->persist($post);
         }
 
@@ -50,6 +51,8 @@ class AppFixtures extends Fixture
                 'pass1234'
             )
         );
+
+        $this->addReference('shaunthornburgh', $user);
 
         $manager->persist($user);
         $manager->flush();
