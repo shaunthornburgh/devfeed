@@ -104,16 +104,22 @@
 
                 </div>
                 <div class="col-auto">
-                    <a href="#" class="btn btn-sm btn-white">
-                        Share
-                    </a>
-                    {% if app.request.attributes.get('_route') == 'post_show' %}
-                    <a href="#" class="btn btn-sm btn-white" onClick="toggleEditPost()" id="editPost">
-                        Edit
-                    </a>
-                    <a href="{{ path('post_delete', {'id': post.id}) }}" class="btn btn-sm btn-outline-danger" id="editPost">
-                        Delete
-                    </a>
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="#" class="btn btn-sm btn-white">
+                            Share
+                        </a>
+                        {% if app.request.attributes.get('_route') == 'post_show' %}
+                            {% if is_granted('edit', post) %}
+                                <a href="#" class="btn btn-sm btn-white" onClick="toggleEditPost()" id="editPost">
+                                    Edit
+                                </a>
+                            {% endif %}
+                            {% if is_granted('delete', post) %}
+                                <a href="{{ path('post_delete', {'id': post.id}) }}" class="btn btn-sm btn-outline-danger" id="editPost">
+                                    Delete
+                                </a>
+                            {% endif %}
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>

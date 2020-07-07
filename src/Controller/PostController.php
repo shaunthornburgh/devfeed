@@ -11,9 +11,12 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Twig\Environment;
 
 /**
@@ -52,12 +55,25 @@ class PostController
     private $flashBag;
 
     /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authorizationChecker;
+
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
      * PostController constructor.
      * @param Environment $twig
      * @param PostRepository $postRepository
      * @param FormFactoryInterface $formFactory
      * @param EntityManagerInterface $entityManager
      * @param RouterInterface $router
+     * @param FlashBagInterface $flashBag
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     * @param TokenStorageInterface $token
      */
     public function __construct(
         Environment $twig,
@@ -65,7 +81,9 @@ class PostController
         FormFactoryInterface $formFactory,
         EntityManagerInterface $entityManager,
         RouterInterface $router,
-        FlashBagInterface $flashBag)
+        FlashBagInterface $flashBag,
+        AuthorizationCheckerInterface $authorizationChecker,
+        TokenStorageInterface $tokenStorage)
     {
         $this->twig = $twig;
         $this->postRepository = $postRepository;
@@ -73,6 +91,8 @@ class PostController
         $this->entityManager = $entityManager;
         $this->router = $router;
         $this->flashBag = $flashBag;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -91,6 +111,7 @@ class PostController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->setUser($this->tokenStorage->getToken()->getUser() );
             $this->entityManager->persist($post);
             $this->entityManager->flush();
 
@@ -124,6 +145,11 @@ class PostController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$this->authorizationChecker->isGranted('edit', $post)) {
+                throw new UnauthorizedHttpException('Access denied');
+            }
+
+            $post->setUser($this->tokenStorage->getToken()->getUser() );
             $this->entityManager->flush();
 
             return new RedirectResponse($request->getUri());
@@ -146,6 +172,10 @@ class PostController
      */
     public function delete(Post $post)
     {
+        if (!$this->authorizationChecker->isGranted('delete', $post)) {
+            throw new UnauthorizedHttpException('Access denied');
+        }
+
         $this->entityManager->remove($post);
         $this->entityManager->flush();
 
