@@ -10,10 +10,12 @@
                     </div>
                 {% endfor %}
 
-                {% include('app/post/create.html.twig') %}
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    {% include('app/post/includes/form.html.twig') %}
+                {% endif %}
 
                 {% for post in posts %}
-                    {% include 'app/post/post.html.twig' with { 'post': post } %}
+                    {% include 'app/post/includes/post.html.twig' with { 'post': post } %}
                 {% endfor %}
 
             </div>
