@@ -73,7 +73,7 @@ class PostController
      * @param RouterInterface $router
      * @param FlashBagInterface $flashBag
      * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param TokenStorageInterface $token
+     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         Environment $twig,
