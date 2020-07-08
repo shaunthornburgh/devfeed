@@ -116,7 +116,6 @@ class PostController
     public function index(Request $request)
     {
         $post = new Post();
-        $post->setTime(new \DateTime());
         $form = $this->formFactory->create(PostType::class, $post);
         $form->handleRequest($request);
 
