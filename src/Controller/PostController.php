@@ -4,7 +4,6 @@
 namespace App\Controller;
 
 use App\Entity\Post;
-use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -172,44 +171,6 @@ class PostController
             $this->twig->render(
                 'app/post/show.html.twig', [
                     'post' => $post,
-                    'form' => $form->createView()
-                ]
-            )
-        );
-    }
-
-    /**
-     * @Route("/user/{username}", name="user_posts")
-     * @param User $user
-     * @param Request $request
-     * @return RedirectResponse|Response
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function userPosts(User $user, Request $request)
-    {
-        $post = new Post();
-        $post->setTime(new \DateTime());
-        $form = $this->formFactory->create(PostType::class, $post);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (!$this->security->isGranted('ROLE_USER')) {
-                throw new UnauthorizedHttpException('Access denied');
-            }
-
-            $post->setUser($this->tokenStorage->getToken()->getUser() );
-            $this->entityManager->persist($post);
-            $this->entityManager->flush();
-
-            return new RedirectResponse($request->getUri());
-        }
-
-        return new Response(
-            $this->twig->render(
-                'app/post/index.html.twig', [
-                    'posts' => $user->getPosts(),
                     'form' => $form->createView()
                 ]
             )

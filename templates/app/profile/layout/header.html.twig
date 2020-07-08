@@ -1,0 +1,49 @@
+<div class="header">
+    <img src="{{ asset('build/images/covers/profile-cover-1.jpg') }}" class="header-img-top" alt="...">
+    <div class="container-fluid">
+        <div class="header-body mt-n5 mt-md-n6">
+            <div class="row align-items-end">
+                <div class="col-auto">
+                    <div class="avatar avatar-xxl header-avatar-top">
+                        <img src="{{ asset('build/images/avatars/profiles/avatar-1.jpg') }}" alt="..." class="avatar-img rounded-circle border border-4 border-body">
+                    </div>
+                </div>
+                <div class="col mb-3 ml-n3 ml-md-n2">
+                    <h6 class="header-pretitle">
+                        Members
+                    </h6>
+                    <h1 class="header-title">
+                        @{{ user.username }}
+                    </h1>
+                </div>
+                <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
+                    <a href="#!" class="btn btn-primary d-block d-md-inline-block lift">
+                        Follow
+                    </a>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col">
+                    <ul class="nav nav-tabs nav-overflow header-tabs">
+                        <li class="nav-item">
+                            <a href="{{ path('profile_index', {'username': user.username}) }}" class="nav-link{% if app.request.attributes.get('_route') is same as('profile_index') %} active{% endif %}">
+                                Posts
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('profile_followers', {'username': user.username}) }}" class="nav-link{% if app.request.attributes.get('_route') is same as('profile_followers') %} active{% endif %}">
+                                Followers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('profile_following', {'username': user.username}) }}" class="nav-link{% if app.request.attributes.get('_route') is same as('profile_following') %} active{% endif %}">
+                                Following
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
