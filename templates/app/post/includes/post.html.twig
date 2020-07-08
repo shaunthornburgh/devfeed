@@ -104,7 +104,7 @@
 
                 </div>
                 <div class="col-auto">
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {% if is_granted('ROLE_USER') %}
                         <a href="#" class="btn btn-sm btn-white">
                             Share
                         </a>
@@ -214,46 +214,46 @@
                 </div>
             </div> <!-- / .row -->
         </div>
+        {% if is_granted('ROLE_USER') %}
+            <!-- Divider -->
+            <hr>
 
-        <!-- Divider -->
-        <hr>
+            <!-- Form -->
+            <div class="row">
+                <div class="col-auto">
 
-        <!-- Form -->
-        <div class="row">
-            <div class="col-auto">
+                    <!-- Avatar -->
+                    <div class="avatar avatar-sm">
+                        <img src="{{ asset('build/images/avatars/profiles/avatar-1.jpg') }}" alt="..." class="avatar-img rounded-circle">
+                    </div>
 
-                <!-- Avatar -->
-                <div class="avatar avatar-sm">
-                    <img src="{{ asset('build/images/avatars/profiles/avatar-1.jpg') }}" alt="..." class="avatar-img rounded-circle">
                 </div>
+                <div class="col ml-n2">
 
-            </div>
-            <div class="col ml-n2">
+                    <!-- Form -->
+                    <form class="mt-1">
+                        <label class="sr-only">Leave a comment...</label>
+                        <textarea class="form-control form-control-flush" data-toggle="autosize" rows="1" placeholder="Leave a comment"></textarea>
+                    </form>
 
-                <!-- Form -->
-                <form class="mt-1">
-                    <label class="sr-only">Leave a comment...</label>
-                    <textarea class="form-control form-control-flush" data-toggle="autosize" rows="1" placeholder="Leave a comment"></textarea>
-                </form>
-
-            </div>
-            <div class="col-auto align-self-end">
-
-                <!-- Icons -->
-                <div class="text-muted mb-2">
-                    <a class="text-reset mr-3" href="#!" data-toggle="tooltip" title="Add photo">
-                        <i class="fe fe-camera"></i>
-                    </a>
-                    <a class="text-reset mr-3" href="#!" data-toggle="tooltip" title="Attach file">
-                        <i class="fe fe-paperclip"></i>
-                    </a>
-                    <a class="text-reset" href="#!" data-toggle="tooltip" title="Record audio">
-                        <i class="fe fe-mic"></i>
-                    </a>
                 </div>
+                <div class="col-auto align-self-end">
 
-            </div>
-        </div> <!-- / .row -->
+                    <!-- Icons -->
+                    <div class="text-muted mb-2">
+                        <a class="text-reset mr-3" href="#!" data-toggle="tooltip" title="Add photo">
+                            <i class="fe fe-camera"></i>
+                        </a>
+                        <a class="text-reset mr-3" href="#!" data-toggle="tooltip" title="Attach file">
+                            <i class="fe fe-paperclip"></i>
+                        </a>
+                        <a class="text-reset" href="#!" data-toggle="tooltip" title="Record audio">
+                            <i class="fe fe-mic"></i>
+                        </a>
+                    </div>
 
+                </div>
+            </div> <!-- / .row -->
+        {% endif %}
     </div>
 </div>

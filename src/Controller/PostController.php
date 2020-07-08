@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 
 /**
@@ -65,6 +66,11 @@ class PostController
     private $tokenStorage;
 
     /**
+     * @var Security
+     */
+    private $security;
+
+    /**
      * PostController constructor.
      * @param Environment $twig
      * @param PostRepository $postRepository
@@ -74,6 +80,7 @@ class PostController
      * @param FlashBagInterface $flashBag
      * @param AuthorizationCheckerInterface $authorizationChecker
      * @param TokenStorageInterface $tokenStorage
+     * @param Security $security
      */
     public function __construct(
         Environment $twig,
@@ -83,7 +90,8 @@ class PostController
         RouterInterface $router,
         FlashBagInterface $flashBag,
         AuthorizationCheckerInterface $authorizationChecker,
-        TokenStorageInterface $tokenStorage)
+        TokenStorageInterface $tokenStorage,
+        Security $security)
     {
         $this->twig = $twig;
         $this->postRepository = $postRepository;
@@ -93,6 +101,7 @@ class PostController
         $this->flashBag = $flashBag;
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
+        $this->security = $security;
     }
 
     /**
@@ -111,6 +120,10 @@ class PostController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$this->security->isGranted('ROLE_USER')) {
+                throw new UnauthorizedHttpException('Access denied');
+            }
+
             $post->setUser($this->tokenStorage->getToken()->getUser() );
             $this->entityManager->persist($post);
             $this->entityManager->flush();
