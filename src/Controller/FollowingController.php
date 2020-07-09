@@ -25,8 +25,7 @@ class FollowingController extends AbstractController
         $authenticatedUser = $this->getUser();
 
         if ($user->getId() !== $authenticatedUser) {
-            $authenticatedUser->getFollowing()
-                ->add($user);
+            $authenticatedUser->follow($user);
 
             $this->getDoctrine()->getManager()->flush();
         }

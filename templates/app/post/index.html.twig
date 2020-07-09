@@ -14,10 +14,20 @@
                     {% include('app/post/includes/form.html.twig') %}
                 {% endif %}
 
-                {% for post in posts %}
-                    {% include 'app/post/includes/post.html.twig' with { 'post': post } %}
-                {% endfor %}
-
+                {% if usersToFollow|length > 0 %}
+                    <h1>
+                        Suggested users for you to follow...
+                    </h1>
+                    <div class="row">
+                        {% for user in usersToFollow %}
+                            {% include 'app/profile/includes/user.html.twig' with { 'user': user } %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {% for post in posts %}
+                        {% include 'app/post/includes/post.html.twig' with { 'post': post } %}
+                    {% endfor %}
+                {% endif %}
             </div>
             {% include('app/post/layout/sidebar.html.twig') %}
         </div>

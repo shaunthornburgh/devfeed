@@ -7,6 +7,7 @@ use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -113,7 +114,7 @@ class PostController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function index(Request $request)
+    public function index(Request $request, UserRepository $userRepository)
     {
         $post = new Post();
         $form = $this->formFactory->create(PostType::class, $post);
@@ -132,10 +133,14 @@ class PostController
         }
 
         $currentUser = $this->tokenStorage->getToken()->getUser();
-
+        $usersToFollow = [];
         if ($currentUser instanceof User) {
             $posts = $this->postRepository->findAllByUsers(
-                $currentUser->getFollowing());
+                $currentUser->getFollowing()
+            );
+
+            $usersToFollow = count($posts) === 0 ?
+                $userRepository->findAllWithMoreThan5PostsExceptUser($currentUser) : [];
         } else {
             $posts = $this->postRepository->findBy([], ['time' => 'DESC']);
         }
@@ -144,7 +149,8 @@ class PostController
             $this->twig->render(
                 'app/post/index.html.twig', [
                     'posts' => $posts,
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
+                    'usersToFollow' => $usersToFollow
                 ]
             )
         );
