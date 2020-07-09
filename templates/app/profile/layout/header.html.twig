@@ -17,9 +17,17 @@
                     </h1>
                 </div>
                 <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
-                    <a href="#!" class="btn btn-primary d-block d-md-inline-block lift">
-                        Follow
-                    </a>
+                    {% if is_granted('ROLE_USER') and user != app.user %}
+                        {%  if user.followers.contains(app.user) == false %}
+                            <a href="{{ path('following_follow', {'id': user.id}) }}" class="btn btn-primary d-block d-md-inline-block lift">
+                                Follow
+                            </a>
+                        {% else %}
+                            <a href="{{ path('following_unfollow', {'id': user.id}) }}" class="btn btn-danger d-block d-md-inline-block lift">
+                                Unfollow
+                            </a>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
             <div class="row align-items-center">

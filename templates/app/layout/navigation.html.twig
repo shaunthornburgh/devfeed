@@ -67,7 +67,7 @@
 
                         <!-- Menu -->
                         <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
-                            <a href="./profile-posts.html" class="dropdown-item">Profile</a>
+                            <a href="{{ path('profile_index', {'username': app.user.username}) }}" class="dropdown-item">Profile</a>
                             <a href="./account-general.html" class="dropdown-item">Settings</a>
                             <hr class="dropdown-divider">
                             <a href="{{ path('security_logout') }}" class="dropdown-item">Logout</a>

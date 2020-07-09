@@ -14,10 +14,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/profile")
+ */
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/profile/{username}", name="profile_index")
+     * @Route("/{username}", name="profile_index")
      * @param User $user
      * @param Request $request
      * @return RedirectResponse|Response
@@ -57,7 +60,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/profile/{username}/followers", name="profile_followers")
+     * @Route("/{username}/followers", name="profile_followers")
      * @param User $user
      * @return RedirectResponse|Response
      * @throws \Twig\Error\LoaderError
@@ -76,7 +79,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/profile/{username}/following", name="profile_following")
+     * @Route("/{username}/following", name="profile_following")
      * @param User $user
      * @return RedirectResponse|Response
      * @throws \Twig\Error\LoaderError
