@@ -53,7 +53,7 @@ class FollowingController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
         }
-        
+
         return $this->redirectToRoute(
             'profile_index',
             ['username' => $user->getUsername()]

@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -130,7 +131,14 @@ class PostController
             return new RedirectResponse($request->getUri());
         }
 
-        $posts = $this->postRepository->findBy([], ['time' => 'DESC']);
+        $currentUser = $this->tokenStorage->getToken()->getUser();
+
+        if ($currentUser instanceof User) {
+            $posts = $this->postRepository->findAllByUsers(
+                $currentUser->getFollowing());
+        } else {
+            $posts = $this->postRepository->findBy([], ['time' => 'DESC']);
+        }
 
         return new Response(
             $this->twig->render(
