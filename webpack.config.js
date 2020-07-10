@@ -27,6 +27,13 @@ Encore
         './assets/css/app.scss',
         './assets/fonts/feather/feather.css'
     ])
+    .autoProvideVariables({
+        "Routing": "router",
+    })
+    .addLoader({
+        test: /jsrouting-bundle\/Resources\/public\/js\/router.min.js$/,
+        loader: "exports-loader?router=window.Routing"
+    })
     .enableSassLoader()
     .splitEntryChunks()
     .autoProvidejQuery()
@@ -37,4 +44,10 @@ Encore
     .enableVersioning(Encore.isProduction())
 ;
 
-module.exports = Encore.getWebpackConfig();
+let config = Encore.getWebpackConfig();
+
+config.resolve.alias = {
+    'router': __dirname + '/assets/js/router.js',
+};
+
+module.exports = config;

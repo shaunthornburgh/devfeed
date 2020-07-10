@@ -18,9 +18,13 @@ window.toggleEditPost = function() {
         editPostButton.html('Edit');
     }
 };
+$( document ).ready(function() {
+    let url = Routing.generate('post_index');
+    console.log(url);
+});
 
 $('#likePost').click(function () {
-    $(this).attr("data-id");
+    //Routing.generate('$(this).attr("data-id");
     $.ajax({
         url: "./insert-like.php",
         type: "post",
