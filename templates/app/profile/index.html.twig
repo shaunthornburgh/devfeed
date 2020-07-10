@@ -16,7 +16,8 @@
                 {% endif %}
 
                 {% for post in posts %}
-                    {% include 'app/post/includes/post.html.twig' with { 'post': post } %}
+                    {% set isLiked = post.getLikedBy.contains(app.user) %}
+                    {% include 'app/post/includes/post.html.twig' with { 'post': post, 'isLiked': isLiked } %}
                 {% endfor %}
             </div>
             <div class="col-12 col-xl-4">

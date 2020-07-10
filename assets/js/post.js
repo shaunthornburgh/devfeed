@@ -1,6 +1,7 @@
-if($('#postContentNonEditable').is(":hidden")) {
+if ($('#postContentNonEditable').is(":hidden")) {
     $('#editPost').html('Cancel');
-}
+};
+
 window.toggleEditPost = function() {
     const postContentEditable = $('#postContentEditable');
     const postContentNonEditable = $('#postContentNonEditable');
@@ -17,3 +18,17 @@ window.toggleEditPost = function() {
         editPostButton.html('Edit');
     }
 };
+
+$('#likePost').click(function () {
+    $(this).attr("data-id");
+    $.ajax({
+        url: "./insert-like.php",
+        type: "post",
+        data: { id: videoID271, userID: userID271 },
+        success: function (data) {
+            var dataParsed = JSON.parse(data);
+            console.log(dataParsed);
+        }
+    });
+
+});

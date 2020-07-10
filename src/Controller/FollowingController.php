@@ -21,11 +21,11 @@ class FollowingController extends AbstractController
      */
     public function follow(User $user)
     {
-        /** @var User $authenticatedUser */
-        $authenticatedUser = $this->getUser();
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
 
-        if ($user->getId() !== $authenticatedUser) {
-            $authenticatedUser->follow($user);
+        if ($user->getId() !== $currentUser) {
+            $currentUser->follow($user);
 
             $this->getDoctrine()->getManager()->flush();
         }
@@ -43,11 +43,11 @@ class FollowingController extends AbstractController
      */
     public function unfollow(User $user)
     {
-        /** @var User $authenticatedUser */
-        $authenticatedUser = $this->getUser();
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
 
-        if ($user->getId() !== $authenticatedUser) {
-            $authenticatedUser->getFollowing()
+        if ($user->getId() !== $currentUser) {
+            $currentUser->getFollowing()
                 ->removeElement($user);
 
             $this->getDoctrine()->getManager()->flush();

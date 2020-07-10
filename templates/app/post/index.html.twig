@@ -11,7 +11,7 @@
                 {% endfor %}
 
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    {% include('app/post/includes/form.html.twig') %}
+                    {% include 'app/post/includes/form.html.twig' %}
                 {% endif %}
 
                 {% if usersToFollow|length > 0 %}
@@ -25,7 +25,8 @@
                     </div>
                 {% else %}
                     {% for post in posts %}
-                        {% include 'app/post/includes/post.html.twig' with { 'post': post } %}
+                        {% set isLiked = post.getLikedBy.contains(app.user) %}
+                        {% include 'app/post/includes/post.html.twig' with { 'post': post, 'isLiked': isLiked } %}
                     {% endfor %}
                 {% endif %}
             </div>

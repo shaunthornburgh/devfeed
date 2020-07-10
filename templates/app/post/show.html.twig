@@ -4,7 +4,8 @@
     <div class="container-fluid">
         <div class="row mt-4 mt-md-5">
             <div class="col-12 col-xl-8">
-                {% include('app/post/includes/post.html.twig') %}
+                {% set isLiked = post.getLikedBy.contains(app.user) %}
+                {% include 'app/post/includes/post.html.twig' with {'isLiked': isLiked} %}
             </div>
             {% include('app/post/layout/sidebar.html.twig') %}
         </div>

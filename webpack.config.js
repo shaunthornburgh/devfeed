@@ -20,7 +20,7 @@ Encore
         './assets/js/theme.min.js',
         './assets/js/app.js',
     ])
-    .addEntry('js/post', './assets/js/postshow.js')
+    .addEntry('js/post', './assets/js/post.js')
     .addStyleEntry('css/app', [
         './node_modules/bootstrap/dist/css/bootstrap.min.css',
         './assets/css/theme.min.css',
