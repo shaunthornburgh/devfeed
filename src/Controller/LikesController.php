@@ -15,8 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class LikesController extends AbstractController
 {
     /**
-     * @Route("/like/{id}", name="likes_like")
+     * @Route("/like/{id}",
+     *     name="likes_like",
+     *     options={"expose"=true}
+     * )
      * @param Post $post
+     * @return JsonResponse
      */
     public function like(Post $post)
     {
@@ -37,7 +41,12 @@ class LikesController extends AbstractController
     }
 
     /**
-     * @Route("/unlike/{id}", name="likes_unlike")
+     * @Route("/unlike/{id}",
+     *     name="likes_unlike",
+     *     options={"expose"=true}
+     * )
+     * @param Post $post
+     * @return JsonResponse)
      */
     public function unlike(Post $post)
     {

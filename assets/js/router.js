@@ -1,5 +1,5 @@
-const routes = require('./fos_js_routes.json');
-import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.js';
+const routes = require('../js/fos_js_routes.json');
+const router = require('../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.js');
 
-Routing.setRoutingData(routes);
-window.Routing = Routing;
+router.setRoutingData(routes);
+module.exports = router;

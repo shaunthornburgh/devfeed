@@ -19,7 +19,7 @@ window.toggleEditPost = function() {
     }
 };
 $( document ).ready(function() {
-    let url = Routing.generate('post_index');
+    let url = Routing.generate('likes_like', {'id': 100});
     console.log(url);
 });
 
