@@ -1,28 +1,34 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Entity\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("is_granted('ROLE_USER')")
  * @Route("/following")
  */
 class FollowingController extends AbstractController
 {
     /**
-     * @Route("/follow/{id}", name="following_follow")
+     * @Route("/follow/{id}",
+     *     name="following_follow",
+     *     options={"expose"=true}
+     * )
      * @param User $user
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return JsonResponse
      */
     public function follow(User $user)
     {
         /** @var User $currentUser */
         $currentUser = $this->getUser();
+
+        if (!$currentUser instanceof User) {
+            return new JsonResponse([], Response::HTTP_UNAUTHORIZED);
+        }
 
         if ($user->getId() !== $currentUser) {
             $currentUser->follow($user);
@@ -30,21 +36,27 @@ class FollowingController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
         }
 
-        return $this->redirectToRoute(
-            'profile_index',
-            ['username' => $user->getUsername()]
-        );
+        return new JsonResponse([
+            'following' => $currentUser->getFollowing()->contains($user)
+        ]);
     }
 
     /**
-     * @Route("/unfollow/{id}", name="following_unfollow")
+     * @Route("/unfollow/{id}",
+     *     name="following_unfollow",
+     *     options={"expose"=true}
+     * )
      * @param User $user
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return JsonResponse
      */
     public function unfollow(User $user)
     {
         /** @var User $currentUser */
         $currentUser = $this->getUser();
+
+        if (!$currentUser instanceof User) {
+            return new JsonResponse([], Response::HTTP_UNAUTHORIZED);
+        }
 
         if ($user->getId() !== $currentUser) {
             $currentUser->getFollowing()
@@ -53,9 +65,8 @@ class FollowingController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
         }
 
-        return $this->redirectToRoute(
-            'profile_index',
-            ['username' => $user->getUsername()]
-        );
+        return new JsonResponse([
+            'following' => $currentUser->getFollowing()->contains($user)
+        ]);
     }
 }

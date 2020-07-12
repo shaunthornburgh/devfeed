@@ -35,7 +35,7 @@
         <div class="mb-3">
             <div class="row">
                 <div class="col">
-                    <a href="#!" data-post-id="{{ post.id }}" class="btn btn-sm btn-{% if isLiked %}outline-primary post-unlike-link{% else %}white post-like-link{% endif %}">
+                    <a href="#" data-post-id="{{ post.id }}" class="btn btn-sm btn-{% if isLiked %}outline-primary post-unlike-link{% else %}white post-like-link{% endif %}">
                         <span class="fe fe-thumbs-up mr-2"></span>
                         <span id="post-like-count">{{ post.getLikedBy.count }}</span>
                     </a>

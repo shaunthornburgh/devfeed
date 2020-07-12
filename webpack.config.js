@@ -21,6 +21,7 @@ Encore
         './assets/js/app.js',
     ])
     .addEntry('js/post', './assets/js/post.js')
+    .addEntry('js/profile', './assets/js/profile.js')
     .addStyleEntry('css/app', [
         './node_modules/bootstrap/dist/css/bootstrap.min.css',
         './assets/css/theme.min.css',
