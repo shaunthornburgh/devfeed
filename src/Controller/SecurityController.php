@@ -24,7 +24,10 @@ class SecurityController
     }
 
     /**
-     * @Route("/login", name="security_login")
+     * @Route("/login",
+     *     name="security_login",
+     *     options={"expose"=true}
+     * )
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      * @throws \Twig\Error\LoaderError

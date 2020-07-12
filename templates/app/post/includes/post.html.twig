@@ -35,11 +35,10 @@
         <div class="mb-3">
             <div class="row">
                 <div class="col">
-                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <a href="#!" data-post-id="{{ post.id }} class="btn btn-sm btn-{% if isLiked %}outline-primary{% else %}white{% endif %}" id="post-like-link">
-                        <span class="fe fe-thumbs-up mr-2"></span><span id="post-like-count">{{ post.getLikedBy.count }}</span>
+                    <a href="#!" data-post-id="{{ post.id }}" class="btn btn-sm btn-{% if isLiked %}outline-primary post-unlike-link{% else %}white post-like-link{% endif %}">
+                        <span class="fe fe-thumbs-up mr-2"></span>
+                        <span id="post-like-count">{{ post.getLikedBy.count }}</span>
                     </a>
-                    {% endif %}
                     {% if app.request.attributes.get('_route') != 'post_show' %}
                         <a href="{{ path('post_show', {'id': post.id}) }}" class="btn btn-sm btn-white">
                             View

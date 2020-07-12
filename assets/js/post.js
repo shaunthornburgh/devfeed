@@ -18,21 +18,44 @@ window.toggleEditPost = function() {
         editPostButton.html('Edit');
     }
 };
-$( document ).ready(function() {
-    let url = Routing.generate('likes_like', {'id': 100});
-    console.log(url);
-});
 
-$('#likePost').click(function () {
-    //Routing.generate('$(this).attr("data-id");
+$(document).on('click', '.post-like-link', function() {
+    const element = $(this);
+    element.addClass('disabled');
     $.ajax({
-        url: "./insert-like.php",
-        type: "post",
-        data: { id: videoID271, userID: userID271 },
+        type: 'GET',
+        url: Routing.generate('likes_like', {'id': $(this).attr("data-post-id")}),
         success: function (data) {
-            var dataParsed = JSON.parse(data);
-            console.log(dataParsed);
+            element.removeClass(['btn-white', 'post-like-link']);
+            element.addClass(['btn-outline-primary', 'post-unlike-link']);
+            element.children().first().next().text(data['count']);
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            if(xhr.status===401) {
+                return window.location.replace(Routing.generate('security_login'));
+            }
         }
     });
+    element.removeClass('disabled');
+});
 
+$(document).on('click', '.post-unlike-link', function() {
+    const element = $(this);
+    element.addClass('disabled');
+    $.ajax({
+        type: 'GET',
+        url: Routing.generate('likes_unlike', {'id': $(this).attr("data-post-id")}),
+        success: function (data) {
+            element.removeClass(['btn-outline-primary', 'post-unlike-link']);
+            element.addClass(['btn-white', 'post-like-link']);
+            element.children().first().next().text(data['count']);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            if(xhr.status===401) {
+                return window.location.replace(Routing.generate('security_login'));
+            }
+        }
+    });
+    element.removeClass('disabled');
 });
