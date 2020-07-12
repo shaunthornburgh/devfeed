@@ -1,38 +1,31 @@
-{% extends 'app/base.html.twig' %}
+{% extends 'app/post/layout/layout.html.twig' %}
 
-{% block body %}
-    <div class="container-fluid">
-        <div class="row mt-4 mt-md-5">
-            <div class="col-12 col-xl-8">
-                {% for message in app.flashes('notice') %}
-                    <div class="alert alert-success">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    {% include 'app/post/includes/form.html.twig' %}
-                {% endif %}
-
-                {% if usersToFollow|length > 0 %}
-                    <h1>
-                        Suggested users for you to follow...
-                    </h1>
-                    <div class="row">
-                        {% for user in usersToFollow %}
-                            {% include 'app/profile/includes/user.html.twig' with { 'user': user } %}
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {% for post in posts %}
-                        {% set isLiked = post.getLikedBy.contains(app.user) %}
-                        {% include 'app/post/includes/post.html.twig' with { 'post': post, 'isLiked': isLiked } %}
-                    {% endfor %}
-                {% endif %}
-            </div>
-            {% include('app/post/layout/sidebar.html.twig') %}
+{% block content %}
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-success">
+            {{ message }}
         </div>
-    </div>
+    {% endfor %}
+
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        {% include 'app/post/includes/form.html.twig' %}
+    {% endif %}
+
+    {% if usersToFollow|length > 0 %}
+        <h1>
+            Suggested users for you to follow...
+        </h1>
+        <div class="row">
+            {% for user in usersToFollow %}
+                {% include 'app/profile/includes/user.html.twig' with { 'user': user } %}
+            {% endfor %}
+        </div>
+    {% else %}
+        {% for post in posts %}
+            {% set isLiked = post.getLikedBy.contains(app.user) %}
+            {% include 'app/post/includes/post.html.twig' with { 'post': post, 'isLiked': isLiked } %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}

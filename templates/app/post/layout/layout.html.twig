@@ -1,0 +1,17 @@
+{% extends '/app/base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row mt-4 mt-md-5">
+            <div class="col-12 col-xl-8">
+                {% block content %}{% endblock %}
+            </div>
+            {% include('app/post/layout/sidebar.html.twig') %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('js/post') }}
+{% endblock %}

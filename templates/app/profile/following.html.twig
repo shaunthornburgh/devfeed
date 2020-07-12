@@ -1,12 +1,7 @@
-{% extends 'app/base.html.twig' %}
+{% extends '/app/profile/layout/layout.html.twig' %}
 
-{% block body %}
-    {% include('app/profile/layout/header.html.twig') %}
-    <div class="container-fluid">
-        <div class="row">
-            {% for user in user.following %}
-                {% include 'app/profile/includes/user.html.twig' with { 'user': user } %}
-            {% endfor %}
-        </div>
-    </div>
+{% block content %}
+    {% for user in user.following %}
+        {% include 'app/profile/includes/user.html.twig' with { 'user': user } %}
+    {% endfor %}
 {% endblock %}

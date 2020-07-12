@@ -1,84 +1,79 @@
-{% extends 'app/base.html.twig' %}
+{% extends '/app/profile/layout/layout.html.twig' %}
 
-{% block body %}
-    {% include('app/profile/layout/header.html.twig') %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 col-xl-8">
-                {% for message in app.flashes('notice') %}
-                    <div class="alert alert-success">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    {% include('app/post/includes/form.html.twig') %}
-                {% endif %}
-
-                {% for post in posts %}
-                    {% set isLiked = post.getLikedBy.contains(app.user) %}
-                    {% include 'app/post/includes/post.html.twig' with { 'post': post, 'isLiked': isLiked } %}
-                {% endfor %}
+{% block content %}
+    <div class="col-12 col-xl-8">
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-success">
+                {{ message }}
             </div>
-            <div class="col-12 col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="list-group list-group-flush my-n3">
-                            <div class="list-group-item">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h5 class="mb-0">
-                                            Birthday
-                                        </h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <time class="small text-muted" datetime="1988-10-24">
-                                            10/24/88
-                                        </time>
-                                    </div>
-                                </div>
+        {% endfor %}
+
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {% include('app/post/includes/form.html.twig') %}
+        {% endif %}
+
+        {% for post in posts %}
+            {% set isLiked = post.getLikedBy.contains(app.user) %}
+            {% include 'app/post/includes/post.html.twig' with { 'post': post, 'isLiked': isLiked } %}
+        {% endfor %}
+    </div>
+    <div class="col-12 col-xl-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="list-group list-group-flush my-n3">
+                    <div class="list-group-item">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h5 class="mb-0">
+                                    Birthday
+                                </h5>
                             </div>
-                            <div class="list-group-item">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h5 class="mb-0">
-                                            Joined
-                                        </h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <time class="small text-muted" datetime="2018-10-28">
-                                            10/24/18
-                                        </time>
-                                    </div>
-                                </div>
+                            <div class="col-auto">
+                                <time class="small text-muted" datetime="1988-10-24">
+                                    10/24/88
+                                </time>
                             </div>
-                            <div class="list-group-item">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h5 class="mb-0">
-                                            Location
-                                        </h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <small class="text-muted">
-                                            Los Angeles, CA
-                                        </small>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h5 class="mb-0">
+                                    Joined
+                                </h5>
                             </div>
-                            <div class="list-group-item">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h5 class="mb-0">
-                                            Website
-                                        </h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="#!" class="small">
-                                            themes.getbootstrap.com
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="col-auto">
+                                <time class="small text-muted" datetime="2018-10-28">
+                                    10/24/18
+                                </time>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h5 class="mb-0">
+                                    Location
+                                </h5>
+                            </div>
+                            <div class="col-auto">
+                                <small class="text-muted">
+                                    Los Angeles, CA
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h5 class="mb-0">
+                                    Website
+                                </h5>
+                            </div>
+                            <div class="col-auto">
+                                <a href="#!" class="small">
+                                    themes.getbootstrap.com
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -86,9 +81,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('js/post') }}
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'app/base.html.twig' %}
+
+{% block body %}
+    {% include('app/profile/layout/header.html.twig') %}
+    <div class="container-fluid">
+        <div class="row">
+            {%  block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('js/post') }}
+{% endblock %}

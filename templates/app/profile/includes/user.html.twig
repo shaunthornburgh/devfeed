@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-auto">
                     {% if is_granted('ROLE_USER') and user != app.user %}
-                        {%  if user.followers.contains(app.user) == false %}
+                        {% if user.followers.contains(app.user) == false %}
                             <a href="{{ path('following_follow', {'id': user.id}) }}" class="btn btn-sm btn-primary">
                                 Follow
                             </a>
