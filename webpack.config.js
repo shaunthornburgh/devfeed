@@ -11,7 +11,8 @@ Encore
         from: './assets/img',
         to: 'images/[path][name].[ext]',
     })
-    .addEntry('js/app', [
+    .addEntry('app', './assets/js/app.js')
+    /*.addEntry('js/app', [
         './node_modules/jquery/dist/jquery.slim.js',
         './node_modules/popper.js/dist/popper.min.js',
         './node_modules/bootstrap/dist/js/bootstrap.min.js',
@@ -19,15 +20,15 @@ Encore
         './assets/js/dashkit.min.js',
         './assets/js/theme.min.js',
         './assets/js/app.js',
-    ])
+    ])*/
     .addEntry('js/post', './assets/js/post.js')
     .addEntry('js/profile', './assets/js/profile.js')
-    .addStyleEntry('css/app', [
+    /*.addStyleEntry('css/app', [
         './node_modules/bootstrap/dist/css/bootstrap.min.css',
         './assets/css/theme.min.css',
         './assets/css/app.scss',
         './assets/fonts/feather/feather.css'
-    ])
+    ])*/
     .autoProvideVariables({
         "Routing": "router",
     })
