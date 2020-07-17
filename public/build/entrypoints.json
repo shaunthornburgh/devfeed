@@ -1,0 +1,31 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~app~js/post~js/profile.js",
+        "/build/vendors~app.js",
+        "/build/app.js"
+      ],
+      "css": [
+        "/build/app.css"
+      ]
+    },
+    "js/post": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~app~js/post~js/profile.js",
+        "/build/js/post~js/profile.js",
+        "/build/js/post.js"
+      ]
+    },
+    "js/profile": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~app~js/post~js/profile.js",
+        "/build/js/post~js/profile.js",
+        "/build/js/profile.js"
+      ]
+    }
+  }
+}
