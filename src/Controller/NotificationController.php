@@ -25,7 +25,7 @@ class NotificationController extends AbstractController
     }
 
     /**
-     * @Route("/unread-count", name="notification-unread")
+     * @Route("/unread-count", name="notifications_unread")
      * @return JsonResponse
      */
     public function unreadCount()

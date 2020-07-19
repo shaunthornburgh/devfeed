@@ -23,6 +23,7 @@ Encore
     ])*/
     .addEntry('js/post', './assets/js/post.js')
     .addEntry('js/profile', './assets/js/profile.js')
+    .addEntry('js/notification', './assets/js/notification.js')
     /*.addStyleEntry('css/app', [
         './node_modules/bootstrap/dist/css/bootstrap.min.css',
         './assets/css/theme.min.css',

@@ -15,8 +15,8 @@
         {% include('app/layout/navigation.html.twig') %}
         <div class="main-content">
             {% block body %}{% endblock %}
-
             {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('js/notification') }}
             {% block javascripts %}
             {% endblock %}
         </div>
