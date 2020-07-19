@@ -20,7 +20,7 @@
         </div>
 
         {% if app.request.attributes.get('_route') == 'post_show' %}
-            <div id="postContentEditable"{% if form.vars.valid %} style="display: none"{% endif %}>{% include('app/post/includes/form.html.twig') %}</div>
+            <div id="postContentEditable"{% if form.vars.valid %} style="display: none"{% endif %}>{% include('app/post/templates/form.html.twig') %}</div>
         {% endif %}
 
         <!-- Text -->

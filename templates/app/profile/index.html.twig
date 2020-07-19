@@ -9,12 +9,12 @@
         {% endfor %}
 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            {% include('app/post/includes/form.html.twig') %}
+            {% include('app/post/templates/form.html.twig') %}
         {% endif %}
 
         {% for post in posts %}
             {% set isLiked = post.getLikedBy.contains(app.user) %}
-            {% include 'app/post/includes/post.html.twig' with { 'post': post, 'isLiked': isLiked } %}
+            {% include 'app/post/templates/post.html.twig' with { 'post': post, 'isLiked': isLiked } %}
         {% endfor %}
     </div>
     <div class="col-12 col-xl-4">

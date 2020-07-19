@@ -2,5 +2,5 @@
 
 {% block content %}
     {% set isLiked = post.getLikedBy.contains(app.user) %}
-    {% include 'app/post/includes/post.html.twig' with {'isLiked': isLiked} %}
+    {% include 'app/post/templates/post.html.twig' with {'isLiked': isLiked} %}
 {% endblock %}

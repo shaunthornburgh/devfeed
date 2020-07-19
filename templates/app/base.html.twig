@@ -16,7 +16,9 @@
         <div class="main-content">
             {% block body %}{% endblock %}
             {{ encore_entry_script_tags('app') }}
-            {{ encore_entry_script_tags('js/notification') }}
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {{ encore_entry_script_tags('js/notification') }}
+            {% endif %}
             {% block javascripts %}
             {% endblock %}
         </div>
