@@ -3,10 +3,11 @@ function fetchNotificationStatus() {
         type: 'GET',
         url: Routing.generate('notifications_unread'),
         success: function (data) {
-            if (data.count['count'] > 0) {
-                $('#notifications-icon').after('<span class="badge badge-soft-info" id="notifications-count-badge">' + data.count['count'] + '</span>');
+            if (data['count'] > 0) {
+                $('#notifications-count-badge').text(data['count'])
+                $('#notifications-count-badge').show();
             } else {
-                $('#notifications-count-badge').remove();
+                $('#notifications-count-badge').hide()
             }
             setTimeout(fetchNotificationStatus, 5000);
         }

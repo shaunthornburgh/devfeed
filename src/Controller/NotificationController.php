@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("is_granted=('ROLE_USER')")
+ * @Security("is_granted('ROLE_USER')")
  * @Route("/notification")
  */
 class NotificationController extends AbstractController
@@ -25,7 +25,10 @@ class NotificationController extends AbstractController
     }
 
     /**
-     * @Route("/unread-count", name="notifications_unread")
+     * @Route("/unread-count",
+     *     name="notifications_unread",
+     *     options={"expose"=true}
+     * )
      * @return JsonResponse
      */
     public function unreadCount()
