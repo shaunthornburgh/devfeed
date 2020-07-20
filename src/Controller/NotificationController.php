@@ -51,13 +51,12 @@ class NotificationController extends AbstractController
     public function notifications(SerializerInterface $serializer)
     {
         return new JsonResponse([
-            'notifications' => $serializer->normalize(
+            'notifications' => $serializer->serialize(
                 $this->notificationRepository->findBy([
                     'seen' => false,
                     'user' => $this->getUser()
                 ]),
-                'json',
-                [AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true]
+                'json'
             )
         ]);
     }
