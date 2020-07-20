@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields="email", message="This email address is already in use")
  * @UniqueEntity(fields="username", message="This username is already in use")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable, \JsonSerializable
 {
     const ROLE_USER = 'ROLE_USER';
     const ROLE_ADMIN = 'ROLE_ADMIN';
@@ -281,5 +281,13 @@ class User implements UserInterface, \Serializable
     public function getPostsLiked(): Collection
     {
         return $this->postsLiked;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id'       => $this->id,
+            'username' => $this->username,
+        ];
     }
 }
