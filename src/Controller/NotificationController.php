@@ -45,19 +45,16 @@ class NotificationController extends AbstractController
      *     name="notifications_all",
      *     options={"expose"=true}
      * )
-     * @param SerializerInterface $serializer
      * @return JsonResponse
      */
-    public function notifications(SerializerInterface $serializer)
+    public function notifications()
     {
         return new JsonResponse([
-            'notifications' => $serializer->serialize(
+            'notifications' =>
                 $this->notificationRepository->findBy([
                     'seen' => false,
                     'user' => $this->getUser()
                 ]),
-                'json'
-            )
         ]);
     }
 }

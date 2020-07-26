@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=PostRepository::class)
  * @ORM\HasLifecycleCallbacks()
  */
-class Post
+class Post implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -132,5 +132,14 @@ class Post
         }
 
         $this->likedBy->add($user);
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'text' => $this->text,
+            'time' => $this->time ? $this->time->format(\DateTime::ISO8601) : null,
+            'user' => $this->getUser()
+        ];
     }
 }

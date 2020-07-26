@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=LikeNotificationRepository::class)
  */
-class LikeNotification extends Notification
+class LikeNotification extends Notification implements \JsonSerializable
 {
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Post")
@@ -50,5 +50,13 @@ class LikeNotification extends Notification
     public function setLikedBy($likedBy): void
     {
         $this->likedBy = $likedBy;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'likedBy' => $this->getLikedBy(),
+            'post'    => $this->getPost()
+        ];
     }
 }
