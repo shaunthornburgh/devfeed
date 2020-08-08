@@ -18,11 +18,11 @@
                 </div>
                 <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
                     {% if user.followers.contains(app.user) == false %}
-                        <a href="#" data-user-id="{{ user.id }}" class="btn btn-primary d-block d-md-inline-block lift user-follow-link">
+                        <a href="#" data-user-id="{{ user.id }}" class="btn btn-primary d-block d-md-inline-block lift js-user-follow-link">
                             Follow
                         </a>
                     {% else %}
-                        <a href="#" data-user-id="{{ user.id }}" class="btn btn-danger d-block d-md-inline-block lift user-unfollow-link">
+                        <a href="#" data-user-id="{{ user.id }}" class="btn btn-danger d-block d-md-inline-block lift js-user-unfollow-link">
                             Unfollow
                         </a>
                     {% endif %}

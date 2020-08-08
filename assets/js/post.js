@@ -19,15 +19,15 @@ window.toggleEditPost = function() {
     }
 };
 
-$(document).on('click', '.post-like-link', function() {
+$(document).on('click', '.js-post-like-link', function() {
     const element = $(this);
     element.addClass('disabled');
     $.ajax({
         type: 'GET',
         url: Routing.generate('likes_like', {'id': $(this).attr("data-post-id")}),
         success: function (data) {
-            element.removeClass(['btn-white', 'post-like-link']);
-            element.addClass(['btn-outline-primary', 'post-unlike-link']);
+            element.removeClass(['btn-white', 'js-post-like-link']);
+            element.addClass(['btn-outline-primary', 'js-post-unlike-link']);
             element.children().first().next().text(data['count']);
 
         },
@@ -40,15 +40,15 @@ $(document).on('click', '.post-like-link', function() {
     element.removeClass('disabled');
 });
 
-$(document).on('click', '.post-unlike-link', function() {
+$(document).on('click', '.js-post-unlike-link', function() {
     const element = $(this);
     element.addClass('disabled');
     $.ajax({
         type: 'GET',
         url: Routing.generate('likes_unlike', {'id': $(this).attr("data-post-id")}),
         success: function (data) {
-            element.removeClass(['btn-outline-primary', 'post-unlike-link']);
-            element.addClass(['btn-white', 'post-like-link']);
+            element.removeClass(['btn-outline-primary', 'js-post-unlike-link']);
+            element.addClass(['btn-white', 'js-post-like-link']);
             element.children().first().next().text(data['count']);
         },
         error: function (xhr, ajaxOptions, thrownError) {

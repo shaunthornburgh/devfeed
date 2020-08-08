@@ -20,7 +20,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/{username}", name="profile_index")
+     * @Route("/{username}",
+     *     name="profile_index",
+     *     options={"expose"=true}
+     * )
      * @param User $user
      * @param Request $request
      * @return RedirectResponse|Response

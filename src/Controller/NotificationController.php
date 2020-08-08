@@ -57,4 +57,19 @@ class NotificationController extends AbstractController
                 ]),
         ]);
     }
+
+    /**
+     * @Route("/acknowledge-all",
+     *     name="notifications_acknowledge_all",
+     *     options={"expose"=true}
+     * )
+     * @return JsonResponse
+     */
+    public function acknowledgeAll()
+    {
+        $this->notificationRepository->markAllAsReadByUser($this->getUser());
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse();
+    }
 }

@@ -29,11 +29,11 @@
                 </div>
                 <div class="col-auto">
                     {% if user.followers.contains(app.user) == false %}
-                        <a href="#" data-user-id="{{ user.id }}" class="btn btn-sm btn-primary user-follow-link">
+                        <a href="#" data-user-id="{{ user.id }}" class="btn btn-sm btn-primary js-user-follow-link">
                             Follow
                         </a>
                     {% else %}
-                        <a href="#" data-user-id="{{ user.id }}"  class="btn btn-sm btn-danger user-unfollow-link">
+                        <a href="#" data-user-id="{{ user.id }}"  class="btn btn-sm btn-danger js-user-unfollow-link">
                             Unfollow
                         </a>
                     {% endif %}

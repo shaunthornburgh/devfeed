@@ -157,7 +157,10 @@ class PostController
     }
 
     /**
-     * @Route("/{id}", name="post_show")
+     * @Route("/{id}",
+     *     name="post_show",
+     *     options={"expose"=true}
+     * )
      * @param Post $post
      * @param Request $request
      * @return RedirectResponse|Response

@@ -137,6 +137,7 @@ class Post implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
+            'id' => $this->id,
             'text' => $this->text,
             'time' => $this->time ? $this->time->format(\DateTime::ISO8601) : null,
             'user' => $this->getUser()
