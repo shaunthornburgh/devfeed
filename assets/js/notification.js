@@ -2,6 +2,7 @@ function fetchNotificationCount() {
     $.ajax({
         type: 'GET',
         url: Routing.generate('notifications_unread'),
+        dataType: 'json',
         success: function (data) {
             if (data['count'] > 0) {
                 $('#js-notification-count-badge')
@@ -20,18 +21,28 @@ function fetchNotifications() {
     $.ajax({
         type: 'GET',
         url: Routing.generate('notifications_all'),
+        dataType: 'json',
         success: function (data) {
             $('#js-notification-list').empty();
-            if ($.trim(data.notifications)) {
-                $.each(data, function (key, value) {
-                    $.each(value, function (k, v) {
-                        let html = notificationTemplate(v);
-                        $('#js-notification-list').append(html);
-                    });
-                });
-            } else {
+            if(data.notifications.length === 0){
                 let html = emptyNotification();
                 $('#js-notification-list').append(html);
+            } else {
+                $.each(data.notifications, function (key, notification) {
+                    var html;
+                    console.log(notification.discr);
+                    switch (notification.discr) {
+                        case 'likedBy':
+                            html = notificationRowTemplate(notification.id, notification.user, 'liked your post');
+                            break;
+                        case 'followedBy':
+                            html = notificationRowTemplate(notification.id, notification.user, 'is now following you');
+                            break;
+                        default:
+                            html = 'notification error';
+                    }
+                    $('#js-notification-list').append(html);
+                });
             }
             setTimeout(fetchNotifications, 5000);
         }
@@ -63,8 +74,8 @@ $(document).on('click', '.js-notification-acknowledge-all', function() {
 fetchNotificationCount();
 fetchNotifications();
 
-const notificationTemplate = (notification) => `
-    <a class="list-group-item text-reset" href="${Routing.generate('post_show', {'id': notification.post.id})}">
+const notificationRowTemplate = (notification, user, action) => `
+    <a class="list-group-item text-reset" href="#">
         <div class="row">
             <div class="col-auto">
                 <div class="avatar avatar-sm avatar-online">
@@ -74,10 +85,10 @@ const notificationTemplate = (notification) => `
             </div>
             <div class="col ml-n2">
                 <h5 class="mb-1">
-                    ${notification.likedBy.username}
+                    ${user.username}
                 </h5>
                 <p class="small text-gray-700 mb-0">
-                    Liked your post
+                    ${action}
                 </p>
                 <small class="text-muted">
                     2m ago

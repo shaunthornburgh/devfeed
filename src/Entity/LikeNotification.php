@@ -55,7 +55,8 @@ class LikeNotification extends Notification implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'likedBy' => $this->getLikedBy(),
+            'discr' => 'likedBy',
+            'user' => $this->getLikedBy(),
             'post'    => $this->getPost()
         ];
     }
