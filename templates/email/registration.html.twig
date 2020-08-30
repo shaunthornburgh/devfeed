@@ -1,0 +1,5 @@
+<h3>Welcome to DevFeed!</h3></h1>
+
+Hello {{ user.fullName }}! You are now registered with DevFeed!<br>
+
+Please confirm your account by clicking this <a href="{{ url('security_confirm', {'token': user.confirmationToken}) }}">link</a>.

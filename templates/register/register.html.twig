@@ -11,15 +11,15 @@
             </p>
             {{ form_start(form) }}
                 <div class="form-group">
-                    <label>Full Name</label>
+                    {{ form_label(form.fullName) }}
                     {{ form_widget(form.fullName) }}
                 </div>
                 <div class="form-group">
-                    <label>Username</label>
+                    {{ form_label(form.username) }}
                     {{ form_widget(form.username) }}
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
+                    {{ form_label(form.email) }}
                     {{ form_widget(form.email) }}
                 </div>
                 {{ form_widget(form.plainPassword) }}

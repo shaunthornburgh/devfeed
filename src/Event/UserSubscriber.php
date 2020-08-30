@@ -2,10 +2,21 @@
 
 namespace App\Event;
 
+use App\Mailer\Mailer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Twig\Environment;
 
 class UserSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var Mailer
+     */
+    private $mailer;
+
+    public function __construct(Mailer $mailer, Environment $twig)
+    {
+        $this->mailer = $mailer;
+    }
 
     public static function getSubscribedEvents()
     {
@@ -16,6 +27,6 @@ class UserSubscriber implements EventSubscriberInterface
 
     public function onUserRegister(UserRegisterEvent $event)
     {
-        $event->getRegisteredUser();
+        $this->mailer->sendConfirmationEmail($event->getRegisteredUser());
     }
 }
